@@ -1,0 +1,16 @@
+v 4
+file . "BancoReg.vhd" "f9b8b73f920bdbedf972991cbd0dc493f5ee305a" "20241111003550.508":
+  entity bancoreg at 1( 0) + 0 on 19;
+  architecture a_bancoreg of bancoreg at 14( 325) + 0 on 20;
+file . "ULA_tb.vhd" "d2a00cf9306cab84f898ed4b9aef4d1c0c81e3a9" "20241110235108.408":
+  entity ula_tb at 1( 0) + 0 on 15;
+  architecture a_ula_tb of ula_tb at 9( 120) + 0 on 16;
+file . "MUX.vhd" "e37faf766d7a3051b763fcc617092b59861c230e" "20241110235058.043":
+  entity mux at 1( 0) + 0 on 11;
+  architecture a_mux of mux at 13( 270) + 0 on 12;
+file . "ULA.vhd" "28f085808c7785f0937034614300480883b588c3" "20241110235108.272":
+  entity ula at 1( 0) + 0 on 13;
+  architecture a_ula of ula at 15( 329) + 0 on 14;
+file . "Reg19bits.vhd" "0ce4aae92780a253690c4362f248ab36800e3e93" "20241111003058.929":
+  entity reg19bits at 1( 0) + 0 on 17;
+  architecture a_reg19bits of reg19bits at 12( 256) + 0 on 18;
