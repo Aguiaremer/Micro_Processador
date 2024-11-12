@@ -1,4 +1,4 @@
-UUT = regs
+UUT = ULA
 
 all: component testbench view
 

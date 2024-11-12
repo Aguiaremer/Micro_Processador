@@ -4,40 +4,42 @@ use ieee.numeric_std.all;
 
 entity ULA is
     port(
-        entrA : in UNSIGNED(15 downto 0);
-        entrB : in UNSIGNED(15 downto 0);
+        entrA, entrB : in UNSIGNED(15 downto 0);
         selec : in UNSIGNED(1 downto 0);
         resul : out UNSIGNED(15 downto 0);
         carry, zero : out std_logic
     );
 end ULA;
 
-architecture a_ULA of ULA is
-    component MUX is
-        port (
-            in_a, in_b, in_c, in_d : in UNSIGNED(16 downto 0);
-            sel_mux : in UNSIGNED(1 downto 0);
-            out_mux : out UNSIGNED(16 downto 0)
-        );
-    end component;
+--00: adição
+--01: subtração
+--10: or
+--11: and
 
-    signal sum_sinal, sub_sinal, or_sinal, and_sinal : UNSIGNED(16 downto 0);
-    signal a_temp, b_temp, resul_aux : UNSIGNED(16 downto 0);
+architecture a_ULA of ULA is
+
+    signal sum_signal, sub_signal, or_signal, and_signal, resul_temp : UNSIGNED(15 downto 0);
 
 begin
-    a_temp <= '0' & entrA;
-    b_temp <= '0' & entrB;
-    sum_sinal <= a_temp + b_temp;
-    sub_sinal <= a_temp - b_temp;
-    or_sinal <= a_temp or b_temp;
-    and_sinal <= a_temp and b_temp;
-    mux1 : MUX port map(sel_mux => selec, 
-                        in_a => sum_sinal, 
-                        in_b => sub_sinal, 
-                        in_c => or_sinal, 
-                        in_d => and_sinal, 
-                        out_mux => resul_aux);
-    carry <= resul_aux(16);
-    zero <= '1' when resul_aux="00000000000000000" else '0';
-    resul <= resul_aux(15 downto 0);
+
+    sum_signal <= entrA + entrB;
+    sub_signal <= entrA - entrB;
+    or_signal <= entrA or entrB;
+    and_signal <= entrA and entrB;
+
+    resul_temp<=sum_signal when selec="00" else
+                sub_signal when selec="01" else
+                or_signal when selec="10" else
+                and_signal when selec="11" else
+                "0000000000000000";
+    
+                -- carry só acontece quando as entradas são unsigned (positivos ou 0)
+    carry<= sum_signal(15) when (selec="00"and entrA(15)='0' and entrB(15)='0') else
+            sub_signal(15) when (selec="01"and entrA(15)='0' and entrB(15)='0') else
+            '0';
+
+    zero <= '1' when resul_temp="0000000000000000" else '0';
+
+    resul <= resul_temp;
+
 end architecture; 
