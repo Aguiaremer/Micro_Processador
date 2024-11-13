@@ -1,6 +1,6 @@
-UUT = ULA
+UUT = ULAeBanco
 
-all: component testbench view
+all: ULA Reg BancoReg component testbench view
 
 component:
 	@ghdl -a $(UUT).vhd
@@ -11,7 +11,7 @@ testbench:
 	@ghdl -e $(UUT)_tb
 
 view:
-	@ghdl -r $(UUT)_tb --wave=$(UUT).ghw
+	@ghdl -r $(UUT)_tb --wave=$(UUT).ghw 
 	@gtkwave $(UUT).ghw
 
 ULA:

@@ -4,7 +4,8 @@ use ieee.numeric_std.all;
 
 entity ULAeBanco is
     port(
-        wr_banco, wr_acumulador, clock, reset : in std_logic;
+        wr_banco, wr_acumulador, clock, reset,load_acc : in std_logic;
+        data_acc : in unsigned (15 downto 0);
         opcode : in unsigned (1 downto 0);
         reg_banco : in unsigned (3 downto 0);
         data_banco : in unsigned (15 downto 0);
@@ -39,7 +40,7 @@ architecture a_ULAeBanco of ULAeBanco is
         );
     end component;
 
-    signal saida_banco, saida_acumulador, saida_ULA : unsigned(15 downto 0);
+    signal saida_banco, saida_acumulador, saida_ULA,in_acc : unsigned(15 downto 0);
 begin
     Banco : BancoReg
     port map (  clk => clock,
@@ -53,7 +54,7 @@ begin
     port map (  clk => clock,
                 wr_en => wr_acumulador,
                 rst => reset,
-                data_in => saida_ULA,
+                data_in => in_acc,
                 data_out => saida_acumulador    );
 
     ULAt : ULA 
@@ -63,4 +64,8 @@ begin
                 selec => opcode,
                 carry => f_carry,
                 zero => f_zero                  );
+
+    in_acc <= data_acc when load_acc='1' else saida_ULA;
+    saida <= saida_ULA;
+
 end architecture;

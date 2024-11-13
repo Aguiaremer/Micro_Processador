@@ -1,19 +1,7 @@
 v 4
-file . "ULAeBanco.vhd" "77c560502eb064f9e4139614afb5bd5a0e1615f4" "20241113011117.514":
-  entity ulaebanco at 1( 0) + 0 on 33;
-  architecture a_ulaebanco of ulaebanco at 16( 421) + 0 on 34;
-file . "BancoReg.vhd" "3bbd3be558984ff99d31383a44807656269b0446" "20241112234945.044":
-  entity bancoreg at 1( 0) + 0 on 25;
-  architecture a_bancoreg of bancoreg at 14( 315) + 0 on 26;
-file . "ULA_tb.vhd" "83e25f7ee3919eddde48723009fd1d673501330a" "20241112010325.215":
-  entity ula_tb at 1( 0) + 0 on 17;
-  architecture a_ula_tb of ula_tb at 9( 120) + 0 on 18;
-file . "ULA.vhd" "cb16770efc49e64af4a7ea7f8ac0d0e3cf4c2199" "20241113011113.091":
-  entity ula at 1( 0) + 0 on 31;
-  architecture a_ula of ula at 19( 352) + 0 on 32;
-file . "Reg16bits.vhd" "ec4c77f64aabdd9103c229b32aa2d65223bfc160" "20241112011510.984":
-  entity reg16bits at 1( 0) + 0 on 19;
-  architecture a_reg16bits of reg16bits at 12( 256) + 0 on 20;
-file . "BancoReg_tb.vhd" "fb8e7737d51cb5a66e5088a99220ed2b9bee55ed" "20241112235903.372":
-  entity bancoreg_tb at 1( 0) + 0 on 27;
-  architecture a_bancoreg_tb of bancoreg_tb at 8( 117) + 0 on 28;
+file . "ULAeBanco_tb.vhd" "b8f11ee72151215405a45176e9b1c09e59e4a4ad" "20241113023336.480":
+  entity ulaebanco_tb at 1( 0) + 0 on 13;
+  architecture a_ulaebanco_tb of ulaebanco_tb at 8( 120) + 0 on 14;
+file . "ULAeBanco.vhd" "d4ddb835641bc0ab9ead4eaab63d8ea739229637" "20241113023336.307":
+  entity ulaebanco at 1( 0) + 0 on 11;
+  architecture a_ulaebanco of ulaebanco at 17( 477) + 0 on 12;
