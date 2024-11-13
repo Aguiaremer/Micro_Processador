@@ -4,13 +4,12 @@ use ieee.numeric_std.all;
 
 entity ULAeBanco is
     port(
-        wr_banco, wr_acumulador, clock, reset,load_acc : in std_logic;
-        data_acc : in unsigned (15 downto 0);
-        opcode : in unsigned (1 downto 0);
-        reg_banco : in unsigned (3 downto 0);
-        data_banco : in unsigned (15 downto 0);
-        saida : out unsigned(15 downto 0);
-        f_zero, f_carry : out std_logic
+        clk, rst, wr_enBanco, wr_enAcumulador : in std_logic;
+        selec_op : in unsigned (1 downto 0);
+        selec_reg : in unsigned (3 downto 0);
+        data_in : in unsigned (15 downto 0);
+        data_out : out unsigned (15 downto 0);
+        f_carry, f_zero : out std_logic
     );
 end ULAeBanco;
 
@@ -40,32 +39,33 @@ architecture a_ULAeBanco of ULAeBanco is
         );
     end component;
 
-    signal saida_banco, saida_acumulador, saida_ULA,in_acc : unsigned(15 downto 0);
+    signal banco_out, acumulador_out, ula_out : unsigned (15 downto 0);
+
+
 begin
     Banco : BancoReg
-    port map (  clk => clock,
-                wr_en => wr_banco,
-                rst => reset,
-                reg_selec => reg_banco,
-                data_write => data_banco,
-                data_reg => saida_banco        );
+    port map (  clk => clk,
+                rst => rst,
+                wr_en => wr_enBanco,
+                reg_selec => selec_reg,
+                data_write => data_in,
+                data_reg => banco_out       );
 
     acumulador : Reg16bits
-    port map (  clk => clock,
-                wr_en => wr_acumulador,
-                rst => reset,
-                data_in => in_acc,
-                data_out => saida_acumulador    );
+    port map (  clk => clk,
+                rst => rst,
+                wr_en => wr_enAcumulador,
+                data_in => ula_out,
+                data_out => acumulador_out  );
 
     ULAt : ULA 
-    port map (  entrA => saida_banco,
-                entrB => saida_acumulador,
-                resul => saida_ULA,
-                selec => opcode,
+    port map (  entrA => banco_out,
+                entrB => acumulador_out,
+                resul => ula_out,
+                selec => selec_op,
                 carry => f_carry,
-                zero => f_zero                  );
-
-    in_acc <= data_acc when load_acc='1' else saida_ULA;
-    saida <= saida_ULA;
+                zero => f_zero              );
+    
+    data_out <= ula_out;
 
 end architecture;
