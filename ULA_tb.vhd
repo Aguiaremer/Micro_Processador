@@ -3,7 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity ULA_tb is
-    --vazio
 end ULA_tb;
 
 architecture a_ULA_tb of ULA_tb is
