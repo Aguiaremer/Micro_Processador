@@ -1,16 +1,19 @@
 v 4
-file . "ULAeBanco_tb.vhd" "5708fa15543b0d2d42039034eb29e80e98f6e5ea" "20241113233423.392":
-  entity ulaebanco_tb at 1( 0) + 0 on 39;
-  architecture a_ulaebanco_tb of ulaebanco_tb at 8( 120) + 0 on 40;
-file . "BancoReg.vhd" "3bbd3be558984ff99d31383a44807656269b0446" "20241113233423.097":
-  entity bancoreg at 1( 0) + 0 on 35;
-  architecture a_bancoreg of bancoreg at 14( 315) + 0 on 36;
-file . "ULA.vhd" "cb16770efc49e64af4a7ea7f8ac0d0e3cf4c2199" "20241113233422.824":
-  entity ula at 1( 0) + 0 on 31;
-  architecture a_ula of ula at 19( 352) + 0 on 32;
-file . "Reg16bits.vhd" "ec4c77f64aabdd9103c229b32aa2d65223bfc160" "20241113233422.965":
-  entity reg16bits at 1( 0) + 0 on 33;
-  architecture a_reg16bits of reg16bits at 12( 256) + 0 on 34;
-file . "ULAeBanco.vhd" "11da86b3a547e15ed61980c80c81d6ae3a418dd9" "20241113233423.243":
-  entity ulaebanco at 1( 0) + 0 on 37;
-  architecture a_ulaebanco of ulaebanco at 16( 424) + 0 on 38;
+file . "ROM_tb.vhd" "8c2596d1152cd98569cf32e4c37d2978eadca64b" "20241116223201.363":
+  entity rom_tb at 1( 0) + 0 on 21;
+  architecture a_rom_tb of rom_tb at 8( 108) + 0 on 22;
+file . "ULAeBanco.vhd" "11da86b3a547e15ed61980c80c81d6ae3a418dd9" "20241116223159.324":
+  entity ulaebanco at 1( 0) + 0 on 17;
+  architecture a_ulaebanco of ulaebanco at 16( 424) + 0 on 18;
+file . "Reg16bits.vhd" "ec4c77f64aabdd9103c229b32aa2d65223bfc160" "20241116223159.027":
+  entity reg16bits at 1( 0) + 0 on 13;
+  architecture a_reg16bits of reg16bits at 12( 256) + 0 on 14;
+file . "ULA.vhd" "cb16770efc49e64af4a7ea7f8ac0d0e3cf4c2199" "20241116223158.865":
+  entity ula at 1( 0) + 0 on 11;
+  architecture a_ula of ula at 19( 352) + 0 on 12;
+file . "BancoReg.vhd" "3bbd3be558984ff99d31383a44807656269b0446" "20241116223159.164":
+  entity bancoreg at 1( 0) + 0 on 15;
+  architecture a_bancoreg of bancoreg at 14( 315) + 0 on 16;
+file . "ROM.vhd" "6af3079ae8a845723d20d5a1cf54ee8581ff9e80" "20241116223159.502":
+  entity rom at 1( 0) + 0 on 19;
+  architecture a_rom of rom at 13( 248) + 0 on 20;

@@ -1,16 +1,13 @@
-UUT = ULAeBanco
+UUT = ROM
 
-all: ULA Reg BancoReg component testbench view
+all: clear ULA Reg BancoReg ULAeBanco ROM
 
-component:
-	@ghdl -a $(UUT).vhd
-	@ghdl -e $(UUT)
+clear:
+	@del work-obj93.cf
 
-testbench:
+test: 
 	@ghdl -a $(UUT)_tb.vhd
 	@ghdl -e $(UUT)_tb
-
-view:
 	@ghdl -r $(UUT)_tb --wave=$(UUT).ghw 
 	@gtkwave $(UUT).ghw
 
@@ -25,3 +22,11 @@ Reg:
 BancoReg:
 	@ghdl -a BancoReg.vhd
 	@ghdl -e BancoReg
+
+ULAeBanco:
+	@ghdl -a ULAeBanco.vhd
+	@ghdl -e ULAeBanco
+
+ROM:
+	@ghdl -a ROM.vhd
+	@ghdl -e ROM

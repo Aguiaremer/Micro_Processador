@@ -58,7 +58,7 @@ begin
 
     process 
     begin
-        wait for period_time*2;
+        wait for period_time;
 
         -- habilita a escrita do banco e do acumulador
         wr_enBanco<='1';
@@ -69,7 +69,7 @@ begin
         selec_reg<="0001";
         data_in<="0000000000000001";
         -- A ula soma o registrador 1 com 0 do acumulador resultando em 1 que é escrito no acumulador
-        wait for period_time*2;
+        wait for period_time;
 
         -- desativa a escrita do acumulador
         wr_enAcumulador<='0';
@@ -77,7 +77,7 @@ begin
         selec_reg<="0010";
         data_in<="0000000000000010";
         -- A ula soma o registrador 2 com 1 do acumulador resultando em 3 
-        wait for period_time*2;
+        wait for period_time;
 
         -- ativa o write do acumulador
         wr_enAcumulador<='1';
@@ -86,7 +86,7 @@ begin
         -- muda o registrador para zero
         selec_reg<="0000";
         -- escreve o 3 que estava na ula no acumulador e muda o saida do banco para 0. saida da ula ainda é 3
-        wait for period_time*2;
+        wait for period_time;
 
         -- desativa a escrita do acumulador
         wr_enAcumulador<='0';
