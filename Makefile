@@ -1,4 +1,4 @@
-UUT = ROM
+UUT = MaqEst_1bit
 
 all: clear ULA Reg BancoReg ULAeBanco ROM
 
@@ -30,3 +30,7 @@ ULAeBanco:
 ROM:
 	@ghdl -a ROM.vhd
 	@ghdl -e ROM
+
+MaqEst_1bit:
+	@ghdl -a MaqEst_1bit.vhd
+	@ghdl -e MaqEst_1bit

@@ -11,7 +11,6 @@ end Reg16bits;
 
 architecture a_Reg16bits of Reg16bits is
     signal registro: unsigned(15 downto 0);
-
 begin
     process(clk,rst,wr_en) 
     begin                
