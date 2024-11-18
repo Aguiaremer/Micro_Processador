@@ -9,19 +9,17 @@ end entity;
 architecture a_UC_tb of UC_tb is
     component UC is 
         port(
-        clk, rst : in std_logic;
-        UC_out : out unsigned(18 downto 0)
+        clk, rst : in std_logic
         );
     end component;
 
     signal clk, rst : std_logic;
-    signal UC_out : unsigned(18 downto 0);
 
     signal   finished    : std_logic := '0';
     constant period_time  : time := 100 ns;
 
 begin
-    uut : UC port map(clk,rst,UC_out);
+    uut : UC port map(clk,rst);
 
     reset_global: process
     begin
