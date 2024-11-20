@@ -1,25 +1,25 @@
 v 4
-file . "UC_tb.vhd" "19ca3c8204c462ce946785c079f69b0b1b016056" "20241118224404.126":
+file . "UC_tb.vhd" "19ca3c8204c462ce946785c079f69b0b1b016056" "20241120231604.367":
   entity uc_tb at 2( 2) + 0 on 25;
   architecture a_uc_tb of uc_tb at 9( 108) + 0 on 26;
-file . "MaqEst_1bit.vhd" "8b7aa23560671938f35b313a4c026bf83c3f054a" "20241118224402.023":
+file . "MaqEst_1bit.vhd" "8b7aa23560671938f35b313a4c026bf83c3f054a" "20241120231601.933":
   entity maqest_1bit at 1( 0) + 0 on 21;
   architecture a_maqest_1bit of maqest_1bit at 12( 197) + 0 on 22;
-file . "ULAeBanco.vhd" "11da86b3a547e15ed61980c80c81d6ae3a418dd9" "20241118224401.742":
+file . "ULAeBanco.vhd" "11da86b3a547e15ed61980c80c81d6ae3a418dd9" "20241120231601.654":
   entity ulaebanco at 1( 0) + 0 on 17;
   architecture a_ulaebanco of ulaebanco at 16( 424) + 0 on 18;
-file . "Reg16bits.vhd" "a14c0b9c82aca5673ebf352b25249f45cff564e2" "20241118224401.476":
+file . "Reg16bits.vhd" "a14c0b9c82aca5673ebf352b25249f45cff564e2" "20241120231601.367":
   entity reg16bits at 1( 0) + 0 on 13;
   architecture a_reg16bits of reg16bits at 13( 267) + 0 on 14;
-file . "ULA.vhd" "cb16770efc49e64af4a7ea7f8ac0d0e3cf4c2199" "20241118224401.221":
+file . "ULA.vhd" "cb16770efc49e64af4a7ea7f8ac0d0e3cf4c2199" "20241120231601.229":
   entity ula at 1( 0) + 0 on 11;
   architecture a_ula of ula at 19( 352) + 0 on 12;
-file . "BancoReg.vhd" "3bbd3be558984ff99d31383a44807656269b0446" "20241118224401.603":
+file . "BancoReg.vhd" "3bbd3be558984ff99d31383a44807656269b0446" "20241120231601.514":
   entity bancoreg at 1( 0) + 0 on 15;
   architecture a_bancoreg of bancoreg at 14( 315) + 0 on 16;
-file . "ROM.vhd" "29f898f0afbda2a45005153aae8c307e7cea35c8" "20241118224401.895":
+file . "ROM.vhd" "29f898f0afbda2a45005153aae8c307e7cea35c8" "20241120231601.807":
   entity rom at 1( 0) + 0 on 19;
   architecture a_rom of rom at 13( 248) + 0 on 20;
-file . "UC.vhd" "ca955efc98e3261609ac7d4ac118e7e0e2e18ab8" "20241118224402.147":
+file . "UC.vhd" "5372d6f9351e64d0ae8d4a5a9fc196856e3b926a" "20241120231602.060":
   entity uc at 1( 0) + 0 on 23;
   architecture a_uc of uc at 11( 155) + 0 on 24;

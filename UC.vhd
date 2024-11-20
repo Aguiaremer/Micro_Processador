@@ -67,13 +67,10 @@ begin
         estado => MaqEst_out
     );
 
-    opcode <= instrucao(2 downto 0);
-    jump_end <= instrucao(18 downto 3);
-
-    wren_PC <=  '1' when MaqEst_out = '0' else '0';
-    PC_in <=    "0000000000000000"  when rst = '1'                              else
-                pc_out + 1          when MaqEst_out = '1' and opcode = "000"    else
-                jump_end            when MaqEst_out = '1' and opcode = "001";
+    wren_PC <=  '1' when MaqEst_out = '0' else '0'; --fetch
+    PC_in <=    "0000000000000000"      when rst = '1'                                              else --reset
+                pc_out + 1              when MaqEst_out = '1' and instrucao(2 downto 0) = "000"     else -- nop
+                instrucao(18 downto 3)  when MaqEst_out = '1' and instrucao(2 downto 0) = "001";         -- jump to
 
     endereco_rom <= pc_out(6 downto 0);
 end architecture;
