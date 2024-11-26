@@ -9,11 +9,11 @@ entity UC is
 end entity;
 
 architecture a_UC of UC is
-    component Reg16bits is
+    component PC is
         port( 
-            clk, wr_en, rst : in std_logic;
-            data_in  : in unsigned(15 downto 0);
-            data_out : out unsigned(15 downto 0)
+            clk, rst : in std_logic;
+            estado: in unsigned (1 downto 0);
+            endereco: out unsigned(6 downto 0)
         );
     end component;
 
@@ -25,15 +25,16 @@ architecture a_UC of UC is
         );
     end component;
 
-    component MaqEst_1bit is
+    component MaqEst is
         port(
-            clk, rst : in std_logic;
-            estado : out std_logic
+            clk, rst: in std_logic;
+            estado: out unsigned(1 downto 0)
         );
     end component;
     
-    signal MaqEst_out, wren_PC : std_logic;
+    signal wren_PC : std_logic;
     signal PC_out, PC_in, jump_end : unsigned(15 downto 0);
+    signal MaqEst_out : unsigned(1 downto 0);
     signal endereco_ROM : unsigned(6 downto 0);
     signal instrucao : unsigned(18 downto 0);
     signal opcode : unsigned(2 downto 0);
@@ -44,13 +45,12 @@ architecture a_UC of UC is
 
 begin
 
-    PC : Reg16bits
+    UC_PC : PC
     port map(
         clk => clk,
         rst => rst,
-        wr_en => wren_PC,
-        data_in => pc_in,
-        data_out => pc_out
+        estado => MaqEst_out,
+        endereco => endereco_ROM
     );
 
     UC_ROM : ROM
@@ -60,17 +60,11 @@ begin
         dado => instrucao
     );
 
-    UC_MaqEst : MaqEst_1bit
+    UC_MaqEst : MaqEst
     port map (
         clk => clk,
         rst => rst,
         estado => MaqEst_out
     );
 
-    wren_PC <=  '1' when MaqEst_out = '0' else '0'; --fetch
-    PC_in <=    "0000000000000000"      when rst = '1'                                              else --reset
-                pc_out + 1              when MaqEst_out = '1' and instrucao(2 downto 0) = "000"     else -- nop
-                instrucao(18 downto 3)  when MaqEst_out = '1' and instrucao(2 downto 0) = "001";         -- jump to
-
-    endereco_rom <= pc_out(6 downto 0);
 end architecture;

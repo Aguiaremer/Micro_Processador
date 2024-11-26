@@ -1,6 +1,6 @@
-UUT = UC
+UUT = PC
 
-all: clear ULA Reg BancoReg ULAeBanco ROM MaqEst_1bit UC
+all: clear ULA Reg BancoReg ULAeBanco ROM MaqEst PC UC
 
 clear:
 	@del work-obj93.cf
@@ -31,10 +31,15 @@ ROM:
 	@ghdl -a ROM.vhd
 	@ghdl -e ROM
 
-MaqEst_1bit:
-	@ghdl -a MaqEst_1bit.vhd
-	@ghdl -e MaqEst_1bit
+MaqEst:
+	@ghdl -a MaqEst.vhd
+	@ghdl -e MaqEst
+
+PC:
+	@ghdl -a PC.vhd
+	@ghdl -e PC
 
 UC: 
 	@ghdl -a UC.vhd
 	@ghdl -e UC
+

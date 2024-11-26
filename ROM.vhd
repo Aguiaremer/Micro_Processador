@@ -4,9 +4,9 @@ use ieee.numeric_std.all;
 
 entity ROM is
    port( 
-        clk      : in std_logic;
-        endereco : in unsigned(6 downto 0);
-        dado     : out unsigned(18 downto 0) 
+         clk      : in std_logic;
+         endereco : in unsigned(6 downto 0);
+         dado     : out unsigned(18 downto 0) 
    );
 end entity;
 

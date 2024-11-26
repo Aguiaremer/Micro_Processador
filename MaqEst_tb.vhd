@@ -2,25 +2,25 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity MaqEst_1bit_tb is
+entity MaqEst_tb is
 end entity;
 
-architecture a_MaqEst_1bit_tb of MaqEst_1bit_tb is
-    component MaqEst_1bit is
+architecture a_MaqEst_tb of MaqEst_tb is
+    component MaqEst is
         port(
-            clk, rst : in std_logic;
-            estado : out std_logic
+            clk, rst: in std_logic;
+            estado: out unsigned(1 downto 0)
         );
     end component;
 
     signal clk, rst : std_logic;
-    signal estado : std_logic;
+    signal estado : unsigned(1 downto 0);
 
     signal   finished    : std_logic := '0';
     constant period_time  : time := 100 ns;
 
 begin
-    uut: MaqEst_1bit port map (clk,rst,estado);
+    uut: MaqEst port map (clk,rst,estado);
     reset_global: process
     begin
         rst <= '1';

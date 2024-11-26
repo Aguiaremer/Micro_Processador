@@ -1,0 +1,15 @@
+ 'Acumulador ou não': 'ULA com acumulador',
+ 'Largura da ROM / instrução em bits': [19],
+ 'Número de registradores no banco': [10],
+ 'ADD ops': 'ADD com dois operandos apenas',
+ 'Carga de constantes': 'Carrega diretamente com LD sem somar',
+ 'SUB ops': 'Subtração com dois operandos apenas',
+ 'ADD ctes': 'Há instrução ADDI que soma com constante',
+ 'SUB ctes': 'Subtração apenas entre registradores',
+ 'Subtração': 'Subtração com SUB sem borrow',
+ 'Comparações': 'Comparação apenas com CMPI',
+ 'Saltos condicionais': ['BHI', 'BHS'],
+ 'Saltos': 'Incondicional é absoluto e condicional é relativo',
+ 'Validação -- final do loop': 'Detecção do MSB setado usando OR',
+ 'Validação -- complicações': 'A constante 1037 é número primo?'
+ 
