@@ -40,8 +40,6 @@ architecture a_UC of UC is
     signal opcode : unsigned(2 downto 0);
 
 
-    constant zero_16bits  : unsigned(15 downto 0) := "0000000000000000";
-
 
 begin
 

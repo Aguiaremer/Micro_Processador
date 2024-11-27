@@ -1,4 +1,4 @@
-UUT = PC
+UUT = ULAeBanco
 
 all: clear ULA Reg BancoReg ULAeBanco ROM MaqEst PC UC
 

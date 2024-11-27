@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity ULAeBanco is
     port(
-        clk, rst, wr_enBanco, wr_enAcumulador : in std_logic;
+        clk, rst, wr_enBanco, wr_enAcumulador, MOV_A_R, MOV_R_A : in std_logic;
         selec_op : in unsigned (1 downto 0);
         selec_reg : in unsigned (3 downto 0);
         data_in : in unsigned (15 downto 0);
@@ -39,7 +39,8 @@ architecture a_ULAeBanco of ULAeBanco is
         );
     end component;
 
-    signal banco_out, acumulador_out, ula_out : unsigned (15 downto 0);
+    signal banco_in, banco_out, acumulador_in, acumulador_out, ula_out : unsigned (15 downto 0);
+    signal zero : std_logic:='0';
 
 
 begin
@@ -48,14 +49,14 @@ begin
                 rst => rst,
                 wr_en => wr_enBanco,
                 reg_selec => selec_reg,
-                data_write => data_in,
+                data_write => banco_in,
                 data_reg => banco_out       );
 
     acumulador : Reg16bits
     port map (  clk => clk,
                 rst => rst,
                 wr_en => wr_enAcumulador,
-                data_in => ula_out,
+                data_in => acumulador_in,
                 data_out => acumulador_out  );
 
     ULAt : ULA 
@@ -65,6 +66,9 @@ begin
                 selec => selec_op,
                 carry => f_carry,
                 zero => f_zero              );
+
+    acumulador_in <= banco_out when MOV_R_A='1' else ula_out;
+    banco_in <= acumulador_out when MOV_A_R='1' else data_in;
     
     data_out <= ula_out;
 
