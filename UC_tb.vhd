@@ -9,17 +9,31 @@ end entity;
 architecture a_UC_tb of UC_tb is
     component UC is 
         port(
-        clk, rst : in std_logic
+            clk, rst : in std_logic;
+            opcode_ULA: out unsigned (1 downto 0);
+            reg_selec: out unsigned (3 downto 0);
+            constante : out unsigned (7 downto 0);
+            instrucao: out unsigned(15 downto 0);
+            estado: out unsigned(1 downto 0);
+            PC: out unsigned(15 downto 0);
+            wr_enBanco, wr_enAcumulador, MOV_R_A, MOV_A_R, soma_acumulador : out std_logic
         );
     end component;
 
-    signal clk, rst : std_logic;
+    signal clk, rst :  std_logic;
+    signal opcode_ULA:  unsigned (1 downto 0);
+    signal reg_selec:  unsigned (3 downto 0);
+    signal constante :  unsigned (7 downto 0);
+    signal instrucao:  unsigned(15 downto 0);
+    signal estado:  unsigned(1 downto 0);
+    signal PC:  unsigned(15 downto 0);
+    signal wr_enBanco, wr_enAcumulador, MOV_R_A, MOV_A_R, soma_acumulador :  std_logic;
 
     signal   finished    : std_logic := '0';
     constant period_time  : time := 100 ns;
 
 begin
-    uut : UC port map(clk,rst);
+    uut : UC port map(clk,rst,opcode_ULA,reg_selec,constante,instrucao,estado,PC,wr_enBanco,wr_enAcumulador,MOV_R_A,MOV_A_R,soma_acumulador);
 
     reset_global: process
     begin

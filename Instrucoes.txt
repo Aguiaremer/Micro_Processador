@@ -1,0 +1,17 @@
+Intruções com 16 bits onde os 4 MSB indica o opcode
+
+
+instrução   | opcode| codificação           | descrição
+NOP         | 0000  | XXXXXXXXXXXX          | não faz nada 
+LD          | 0001  | RRRR | IIIIIIII       | carrega uma constante em um registrador
+ADD         | 0010  | RRRR | XXXXXXXX       | soma o conteudo de um registrador no acumuldaor
+SUB         | 0011  | RRRR | XXXXXXXX       | subtrai o conteudo de um registrador no acumuldaor
+ADDI        | 0100  | IIIIIIII | XXXX       | soma uma constante no acumulador
+JMP         | 0101  | EEEEEEE | XXXXX       | pula o para um endereço
+MOV         | 0110  | RRRR | RRRR | XXXX    | troca o conteudo de um registrador com o acumulador 
+
+I- constante
+R- registrador
+E- endereço
+X- não relevante
+

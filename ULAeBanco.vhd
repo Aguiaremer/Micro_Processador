@@ -4,11 +4,13 @@ use ieee.numeric_std.all;
 
 entity ULAeBanco is
     port(
-        clk, rst, wr_enBanco, wr_enAcumulador, MOV_A_R, MOV_R_A : in std_logic;
-        selec_op : in unsigned (1 downto 0);
-        selec_reg : in unsigned (3 downto 0);
+        clk, rst, wr_enBanco, wr_enAcumulador: in std_logic;
+        MOV_A_R, MOV_R_A, soma_acumulador : in std_logic;
+        opcode_ULA : in unsigned (1 downto 0);
+        reg_selec : in unsigned (3 downto 0);
         data_in : in unsigned (15 downto 0);
         data_out : out unsigned (15 downto 0);
+        acumulador_s, banco_s: out unsigned (15 downto 0);
         f_carry, f_zero : out std_logic
     );
 end ULAeBanco;
@@ -39,8 +41,8 @@ architecture a_ULAeBanco of ULAeBanco is
         );
     end component;
 
-    signal banco_in, banco_out, acumulador_in, acumulador_out, ula_out : unsigned (15 downto 0);
-    signal zero : std_logic:='0';
+    signal banco_in, banco_out, acumulador_in, acumulador_out, ula_out, entrA_s : unsigned (15 downto 0);
+
 
 
 begin
@@ -48,7 +50,7 @@ begin
     port map (  clk => clk,
                 rst => rst,
                 wr_en => wr_enBanco,
-                reg_selec => selec_reg,
+                reg_selec => reg_selec,
                 data_write => banco_in,
                 data_reg => banco_out       );
 
@@ -60,16 +62,21 @@ begin
                 data_out => acumulador_out  );
 
     ULAt : ULA 
-    port map (  entrA => banco_out,
+    port map (  entrA => entrA_s,
                 entrB => acumulador_out,
                 resul => ula_out,
-                selec => selec_op,
+                selec => opcode_ULA,
                 carry => f_carry,
                 zero => f_zero              );
 
     acumulador_in <= banco_out when MOV_R_A='1' else ula_out;
     banco_in <= acumulador_out when MOV_A_R='1' else data_in;
+
+    entrA_s <= data_in when soma_acumulador='1' else banco_out;
     
     data_out <= ula_out;
+
+    acumulador_s<=acumulador_out;
+    banco_s<=banco_out;
 
 end architecture;

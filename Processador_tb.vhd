@@ -2,39 +2,33 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity PC_tb is
+entity Processador_tb is
 end entity;
 
-architecture a_PC_tb of PC_tb is
-    component PC is
+architecture a_Processador_tb of Processador_tb is
+    component Processador is
         port(
             clk, rst : in std_logic;
-            estado: in unsigned (1 downto 0);
-            endereco: out unsigned(6 downto 0)
-        );
+            instrucao: out unsigned(15 downto 0);
+            estado: out unsigned(1 downto 0);
+            PC: out unsigned(15 downto 0);
+            acumulador_out, banco_out: out unsigned (15 downto 0);
+            ULA_out : out unsigned(15 downto 0)
+    );
     end component;
 
-    signal clk, rst : std_logic;
-    signal estado: unsigned (1 downto 0);
-    signal endereco: unsigned(6 downto 0);
+    signal clk, rst :  std_logic;
+    signal instrucao:  unsigned(15 downto 0);
+    signal estado:  unsigned(1 downto 0);
+    signal PC:  unsigned(15 downto 0);
+    signal acumulador_out, banco_out:  unsigned (15 downto 0);
+    signal ULA_out :  unsigned(15 downto 0);
 
     signal   finished    : std_logic := '0';
     constant period_time  : time := 100 ns;
 
 begin
-    uut: PC port map(clk, rst, estado, endereco);
-
-    process
-    begin
-        estado <= "01";
-        wait for period_time*2;
-        estado <= "00";
-        wait for period_time*2;
-        estado <= "01";
-        wait for period_time*2;
-        estado <= "00";
-        wait;        
-    end process;
+    uut: Processador port map(clk,rst,instrucao,estado,PC,acumulador_out,banco_out,ULA_out);
 
     reset_global: process
     begin
@@ -61,4 +55,5 @@ begin
         end loop;
         wait;
     end process clk_proc;
+
 end architecture;

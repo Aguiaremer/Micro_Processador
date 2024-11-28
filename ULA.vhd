@@ -38,9 +38,7 @@ begin
                 "0000000000000000";
     
                 -- carry só acontece quando as entradas são unsigned (positivos ou 0)
-    carry<= sum_signal(16) when (selec="00"and entrA(15)='0' and entrB(15)='0') else
-            sub_signal(16) when (selec="01"and entrA(15)='0' and entrB(15)='0') else
-            '0';
+    carry<= '1' when sub_signal(16)='1' or sum_signal(16)='1' else '0';
 
     zero <= '1' when resul_temp="0000000000000000" else '0';
 
