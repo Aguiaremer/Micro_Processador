@@ -14,7 +14,7 @@ end ULA;
 --00: adição
 --01: subtração
 --10: or
---11: and
+--11: NOP
 
 architecture a_ULA of ULA is
 
@@ -34,7 +34,6 @@ begin
     resul_temp<=sum_signal (15 downto 0)    when selec="00" else
                 sub_signal (15 downto 0)    when selec="01" else
                 or_signal                   when selec="10" else
-                and_signal                  when selec="11" else
                 "0000000000000000";
     
                 -- carry só acontece quando as entradas são unsigned (positivos ou 0)

@@ -85,7 +85,7 @@ begin
     );
 
 
-    -- estensão de sinal
+    -- extensão de sinal
     banco_in<=  "00000000"&const when const(7)='0'else
                 "11111111"&const when const(7)='1';
 

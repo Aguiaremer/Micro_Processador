@@ -97,17 +97,19 @@ begin
     PC_in  <=   "000000000" & instr_reg_out(11 downto 5) when opcode="0101" else PC_out + 1;    
 
     -- seleção de registrador
-    reg_selec<= instr_reg_out(11 downto 8) when  MaqEst_out="01" and (opcode="0001" or opcode="0010" or opcode="0011" or (opcode="0110" and instr_reg_out(7 downto 4)="1011")) else
-                instr_reg_out(7 downto 4) when MaqEst_out="01" and (opcode="0110" and instr_reg_out(11 downto 8)="1011");
+    reg_selec<= instr_reg_out(11 downto 8) when opcode="0001" or opcode="0010" or opcode="0011" or (opcode="0110" and instr_reg_out(7 downto 4)="1011") else 
+                instr_reg_out(7 downto 4) when opcode="0110" and instr_reg_out(11 downto 8)="1011" else
+                "0000";
 
     -- def constante
-    constante<= instr_reg_out(7 downto 0) when MaqEst_out="01" and opcode="0001" else
-                instr_reg_out(11 downto 4) when MaqEst_out="01" and opcode="0100";
-
+    constante<= instr_reg_out(7 downto 0) when opcode="0001" else 
+                instr_reg_out(11 downto 4) when opcode="0100" else
+                "00000000";
 
     -- define o opcode da Ula
-    opcode_ULA<="00" when opcode="0010" or opcode="0100" else
-                "01" when opcode="0011";
+    opcode_ULA<="00" when opcode="0010" or opcode="0100" else 
+                "01" when opcode="0011" else
+                "11";
     
     ------------- execute
 
