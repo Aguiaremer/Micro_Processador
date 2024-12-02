@@ -4,11 +4,10 @@ use ieee.numeric_std.all;
 
 entity UC is
     port(
-        clk, rst : in std_logic;
+        clk, rst, f_carry, f_zero : in std_logic;
         opcode_ULA: out unsigned (1 downto 0);
         reg_selec: out unsigned (3 downto 0);
-        constante : out unsigned (7 downto 0);
-        instrucao: out unsigned(15 downto 0);
+        instrucao, const: out unsigned(15 downto 0);
         estado: out unsigned(1 downto 0);
         PC: out unsigned(15 downto 0);
         wr_enBanco, wr_enAcumulador, MOV_R_A, MOV_A_R, soma_acumulador : out std_logic
@@ -40,9 +39,10 @@ architecture a_UC of UC is
     end component;
     
     signal wren_PC, wren_instr_reg : std_logic;
-    signal PC_out, PC_in, instr_reg_in, instr_reg_out : unsigned(15 downto 0);
+    signal PC_out, PC_in, instr_reg_in, instr_reg_out,const_s : unsigned(15 downto 0);
     signal MaqEst_out : unsigned(1 downto 0);
     signal endereco_ROM : unsigned(6 downto 0);
+    signal const_temp : unsigned (7 downto 0);
     signal instrucao_temp: unsigned(18 downto 0);
     signal opcode : unsigned(3 downto 0);
 
@@ -94,21 +94,28 @@ begin
     
     -- update pc
     wren_PC <=  '1' when MaqEst_out="01" else '0';
-    PC_in  <=   "000000000" & instr_reg_out(11 downto 5) when opcode="0101" else PC_out + 1;    
+    PC_in  <=   "000000000" & instr_reg_out(11 downto 5) when opcode="0101" else 
+                PC_out + const_s when opcode="0111" and f_carry='1' and f_zero='0' else
+                PC_out + const_s when opcode="1000" and f_carry='1' else
+                PC_out + 1;
 
     -- seleção de registrador
-    reg_selec<= instr_reg_out(11 downto 8) when opcode="0001" or opcode="0010" or opcode="0011" or (opcode="0110" and instr_reg_out(7 downto 4)="1011") else 
+    reg_selec<= instr_reg_out(11 downto 8) when opcode="0111" or opcode="1000" or opcode="0001" or opcode="0010" or opcode="0011" or (opcode="0110" and instr_reg_out(7 downto 4)="1011") else 
                 instr_reg_out(7 downto 4) when opcode="0110" and instr_reg_out(11 downto 8)="1011" else
                 "0000";
 
     -- def constante
-    constante<= instr_reg_out(7 downto 0) when opcode="0001" else 
+    const_temp<=instr_reg_out(7 downto 0) when opcode="0111" or opcode="1000" or opcode="0001" else 
                 instr_reg_out(11 downto 4) when opcode="0100" else
                 "00000000";
 
+    -- extensão de sinal
+    const_s <=  "00000000"&const_temp when const_temp(7)='0'else
+                "11111111"&const_temp when const_temp(7)='1';
+
     -- define o opcode da Ula
     opcode_ULA<="00" when opcode="0010" or opcode="0100" else 
-                "01" when opcode="0011" else
+                "01" when opcode="0111" or opcode="1000" or opcode="0011" else
                 "11";
     
     ------------- execute
@@ -125,6 +132,7 @@ begin
     
     ----------
 
+    const<=const_s;
     instrucao <= instr_reg_out;
     estado<=MaqEst_out;
     PC <= PC_out;

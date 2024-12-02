@@ -46,7 +46,7 @@ architecture a_ULAeBanco of ULAeBanco is
 
 
 begin
-    Banco : BancoReg
+    ULAeBanco_Banco : BancoReg
     port map (  clk => clk,
                 rst => rst,
                 wr_en => wr_enBanco,
@@ -54,20 +54,22 @@ begin
                 data_write => banco_in,
                 data_reg => banco_out       );
 
-    acumulador : Reg16bits
+    ULAeBanco_Acumulador : Reg16bits
     port map (  clk => clk,
                 rst => rst,
                 wr_en => wr_enAcumulador,
                 data_in => acumulador_in,
                 data_out => acumulador_out  );
 
-    ULAt : ULA 
+    ULAeBanco_ULA : ULA 
     port map (  entrA => entrA_s,
                 entrB => acumulador_out,
                 resul => ula_out,
                 selec => opcode_ULA,
                 carry => f_carry,
                 zero => f_zero              );
+    
+    
 
     acumulador_in <= banco_out when MOV_R_A='1' else ula_out;
     banco_in <= acumulador_out when MOV_A_R='1' else data_in;

@@ -1,4 +1,4 @@
-UUT = Processador
+UUT = UC
 
 all: clear ULA Reg BancoReg ULAeBanco ROM MaqEst UC Processador
 

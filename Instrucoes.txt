@@ -8,7 +8,9 @@ ADD         | 0010  | RRRR | XXXXXXXX       | soma o conteudo de um registrador 
 SUB         | 0011  | RRRR | XXXXXXXX       | subtrai o conteudo de um registrador no acumuldaor
 ADDI        | 0100  | IIIIIIII | XXXX       | soma uma constante no acumulador
 JMP         | 0101  | EEEEEEE | XXXXX       | pula o para um endereço
-MOV         | 0110  | RRRR | RRRR | XXXX    | troca o conteudo de um registrador com o acumulador 
+MOV         | 0110  | RRRR | RRRR | XXXX    | troca o conteudo de um registrador com o acumulador
+BHI         | 0111  | RRRR | IIIIIIII       | faz um branch relativo se o valor do acumulador é maior que o do registrador 
+BHI         | 1000  | RRRR | IIIIIIII       | faz um branch relativo se o valor do acumulador é maior ou igual que o do registrador
 
 I- constante
 R- registrador
