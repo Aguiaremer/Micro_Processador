@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity ULAeBanco is
     port(
-        clk, rst, wr_enBanco, wr_enAcumulador: in std_logic;
+        clk, rst, wr_enBanco, wr_enAcumulador, wr_enFlags: in std_logic;
         MOV_A_R, MOV_R_A, soma_acumulador : in std_logic;
         opcode_ULA : in unsigned (1 downto 0);
         reg_selec : in unsigned (3 downto 0);
@@ -32,6 +32,14 @@ architecture a_ULAeBanco of ULAeBanco is
         );
     end component;
 
+    component Reg1bits is
+        port( 
+            clk, wr_en, rst : in std_logic;
+            data_in  : in std_logic;
+            data_out : out std_logic
+        );
+    end component;
+
     component BancoReg is
         port (
         wr_en, clk, rst : in std_logic;
@@ -42,6 +50,7 @@ architecture a_ULAeBanco of ULAeBanco is
     end component;
 
     signal banco_in, banco_out, acumulador_in, acumulador_out, ula_out, entrA_s : unsigned (15 downto 0);
+    signal f_carry_s, f_zero_s : std_logic;
 
 
 
@@ -66,8 +75,22 @@ begin
                 entrB => acumulador_out,
                 resul => ula_out,
                 selec => opcode_ULA,
-                carry => f_carry,
-                zero => f_zero              );
+                carry => f_carry_s,
+                zero => f_zero_s             );
+
+    ULAeBanco_ff_carry : Reg1bits
+    port map (  clk => clk,
+                rst => rst,
+                wr_en => wr_enAcumulador,
+                data_in => f_carry_s,
+                data_out => f_carry  );
+    
+    ULAeBanco_ff_zero : Reg1bits
+    port map (  clk => clk,
+                rst => rst,
+                wr_en => wr_enAcumulador,
+                data_in => f_zero_s,
+                data_out => f_zero  );
     
     
 

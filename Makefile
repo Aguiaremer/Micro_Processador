@@ -1,6 +1,6 @@
-UUT = UC
+UUT = Processador
 
-all: clear ULA Reg BancoReg ULAeBanco ROM MaqEst UC Processador
+all: clear ULA Reg16bits Reg1bits BancoReg ULAeBanco ROM MaqEst UC Processador
 
 clear:
 	@del work-obj93.cf
@@ -15,9 +15,13 @@ ULA:
 	@ghdl -a ULA.vhd
 	@ghdl -e ULA
 
-Reg:
+Reg16bits:
 	@ghdl -a Reg16bits.vhd
 	@ghdl -e Reg16bits
+
+Reg1bits:
+	@ghdl -a Reg1bits.vhd
+	@ghdl -e Reg1bits
 
 BancoReg:
 	@ghdl -a BancoReg.vhd

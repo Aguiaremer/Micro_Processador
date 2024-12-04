@@ -22,13 +22,13 @@ architecture a_Prcessador of Processador is
             instrucao, const: out unsigned(15 downto 0);
             estado: out unsigned(1 downto 0);
             PC: out unsigned(15 downto 0);
-            wr_enBanco, wr_enAcumulador, MOV_R_A, MOV_A_R, soma_acumulador : out std_logic
+            wr_enBanco, wr_enAcumulador, wr_enFlags, MOV_R_A, MOV_A_R, soma_acumulador : out std_logic
         );
     end component;
 
     component ULAeBanco is
         port(
-            clk, rst, wr_enBanco, wr_enAcumulador: in std_logic;
+            clk, rst, wr_enBanco, wr_enAcumulador, wr_enFlags: in std_logic;
             MOV_A_R, MOV_R_A, soma_acumulador : in std_logic;
             opcode_ULA : in unsigned (1 downto 0);
             reg_selec : in unsigned (3 downto 0);
@@ -39,7 +39,7 @@ architecture a_Prcessador of Processador is
         );
     end component;
 
-    signal wr_enBanco_s, wr_enAcumulador_s, MOV_R_A_s, MOV_A_R_s, soma_acumulador_s,carry,flag, f_carry_s, f_zero_s : std_logic;
+    signal wr_enBanco_s, wr_enAcumulador_s, wr_enFlags_s, MOV_R_A_s, MOV_A_R_s, soma_acumulador_s,carry,flag, f_carry_s, f_zero_s : std_logic;
     signal opcode_ULA_s : unsigned (1 downto 0);
     signal reg_selec_s: unsigned (3 downto 0);
     signal const_s : unsigned (15 downto 0);
@@ -52,6 +52,7 @@ begin
         rst=>rst,
         wr_enBanco=> wr_enBanco_s,
         wr_enAcumulador=> wr_enAcumulador_s,
+        wr_enFlags=>wr_enFlags_s,
         MOV_R_A=> MOV_R_A_s,
         MOV_A_R=> MOV_A_R_s,
         soma_acumulador=> soma_acumulador_s,
@@ -71,6 +72,7 @@ begin
         rst=>rst,
         wr_enBanco=> wr_enBanco_s,
         wr_enAcumulador=> wr_enAcumulador_s,
+        wr_enFlags=>wr_enFlags_s,
         MOV_R_A=> MOV_R_A_s,
         MOV_A_R=> MOV_A_R_s,
         soma_acumulador=> soma_acumulador_s,
