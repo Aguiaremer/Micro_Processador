@@ -4,12 +4,13 @@ use ieee.numeric_std.all;
 
 entity ULAeBanco is
     port(
-        clk, rst, wr_enBanco, wr_enAcumulador, wr_enFlags: in std_logic;
+        clk, rst, wr_enBanco, wr_enAcumulador, wr_enFlags, lw_flag: in std_logic;
         MOV_A_R, MOV_R_A, soma_acumulador : in std_logic;
         opcode_ULA : in unsigned (1 downto 0);
         reg_selec : in unsigned (3 downto 0);
-        data_in : in unsigned (15 downto 0);
+        data_in, data_ram : in unsigned (15 downto 0);
         data_out : out unsigned (15 downto 0);
+        reg_dado : out unsigned (6 downto 0);
         acumulador_s, banco_s: out unsigned (15 downto 0);
         f_carry, f_zero : out std_logic
     );
@@ -94,8 +95,9 @@ begin
     
     
 
-    acumulador_in <= banco_out when MOV_R_A='1' else ula_out;
     banco_in <= acumulador_out when MOV_A_R='1' else data_in;
+
+    acumulador_in<= banco_out when MOV_R_A='1' else data_ram when lw_flag='1' else ula_out;
 
     entrA_s <= data_in when soma_acumulador='1' else banco_out;
     
@@ -103,5 +105,6 @@ begin
 
     acumulador_s<=acumulador_out;
     banco_s<=banco_out;
+    reg_dado<=banco_out(6 downto 0);
 
 end architecture;

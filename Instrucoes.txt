@@ -12,6 +12,8 @@ MOV         | 0110  | RRRR | RRRR | XXXX    | troca o conteudo de um registrador
 BHI         | 0111  | IIIIIIII | XXXX       | faz um branch relativo se carry=1 e zero=0 
 BHS         | 1000  | IIIIIIII | XXXX       | faz um branch relativo se carry=1
 CPMI        | 1001  | IIIIIIII | XXXX       | compara a constante com o acumulador(constante-acc)
+LW          | 1010  | RRRR |  XXXXXXXX      | Lê a memoria e carrega no acumulador
+SW          | 1011  | RRRR | XXXXXXXX       | Guarda na memoria oque tá no acumulador
 
 
 I- constante
