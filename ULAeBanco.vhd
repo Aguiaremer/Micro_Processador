@@ -82,14 +82,14 @@ begin
     ULAeBanco_ff_carry : Reg1bits
     port map (  clk => clk,
                 rst => rst,
-                wr_en => wr_enAcumulador,
+                wr_en => wr_enFlags,
                 data_in => f_carry_s,
                 data_out => f_carry  );
     
     ULAeBanco_ff_zero : Reg1bits
     port map (  clk => clk,
                 rst => rst,
-                wr_en => wr_enAcumulador,
+                wr_en => wr_enFlags,
                 data_in => f_zero_s,
                 data_out => f_zero  );
     

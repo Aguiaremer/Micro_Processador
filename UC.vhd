@@ -104,13 +104,19 @@ begin
                 instr_reg_out(7 downto 4) when opcode="0110" and instr_reg_out(11 downto 8)="1011" else
                 "0000";
 
-    -- def constante
-    const_temp<=instr_reg_out(11 downto 4) when opcode="1001" or opcode="0111" or opcode="1000" or opcode="0100" else
-                instr_reg_out(7 downto 0) when opcode="0001" else 
-                "00000000";
 
-    -- extensão de sinal
-    const_s <=  "00000000"&const_temp when const_temp(7)='0'else "11111111"&const_temp;
+    -- def constante de com addi com 12 bits já com a extensão de sinal
+    const_s <=  "0000"&instr_reg_out(11 downto 0) when (opcode="1001" or opcode="0100") and instr_reg_out(11)='0' else "1111"&instr_reg_out(11 downto 0) when (opcode="1001" or opcode="0100") and instr_reg_out(11)='1' else   -- ADDI CMPI 
+                "00000000"&instr_reg_out(11 downto 4) when (opcode="0111" or opcode="1000") and instr_reg_out(11)='0' else "11111111"&instr_reg_out(11 downto 4) when (opcode="1001" or opcode="0111" or opcode="1000") and instr_reg_out(11)='1' else-- BHS BHI
+                "00000000"&instr_reg_out(7 downto 0) when opcode="0001" and instr_reg_out(7)='0' else "11111111"&instr_reg_out(7 downto 0) when opcode="0001" and instr_reg_out(7)='1' else-- LD
+                "0000000000000000";
+
+    --        -- def constante
+    --        const_temp<=instr_reg_out(11 downto 4) when opcode="1001" or opcode="0111" or opcode="1000" or opcode="0100" else
+    --        instr_reg_out(7 downto 0) when opcode="0001" else 
+    --       "00000000";
+    --        -- extensão de sinal
+    --        const_s <=  "00000000"&const_temp when const_temp(7)='0'else "11111111"&const_temp;
 
     -- define o opcode da Ula
     opcode_ULA<="00" when opcode="0010" or opcode="0100" else 
