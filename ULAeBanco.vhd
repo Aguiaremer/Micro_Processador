@@ -10,8 +10,7 @@ entity ULAeBanco is
         reg_selec : in unsigned (3 downto 0);
         data_in, data_ram : in unsigned (15 downto 0);
         data_out : out unsigned (15 downto 0);
-        reg_dado : out unsigned (6 downto 0);
-        acumulador_s, banco_s: out unsigned (15 downto 0);
+        acumulador_s, banco_s, saida: out unsigned (15 downto 0);
         f_carry, f_zero : out std_logic
     );
 end ULAeBanco;
@@ -46,7 +45,7 @@ architecture a_ULAeBanco of ULAeBanco is
         wr_en, clk, rst : in std_logic;
         reg_selec : in unsigned(3 downto 0);
         data_write : in   unsigned(15 downto 0);
-        data_reg : out unsigned(15 downto 0)
+        data_reg,saida : out unsigned(15 downto 0)
         );
     end component;
 
@@ -62,7 +61,8 @@ begin
                 wr_en => wr_enBanco,
                 reg_selec => reg_selec,
                 data_write => banco_in,
-                data_reg => banco_out       );
+                data_reg => banco_out,
+                saida => saida      );
 
     ULAeBanco_Acumulador : Reg16bits
     port map (  clk => clk,
@@ -105,6 +105,5 @@ begin
 
     acumulador_s<=acumulador_out;
     banco_s<=banco_out;
-    reg_dado<=banco_out(6 downto 0);
 
 end architecture;

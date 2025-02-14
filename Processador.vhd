@@ -8,8 +8,7 @@ entity Processador is
         instrucao: out unsigned(15 downto 0);
         estado: out unsigned(1 downto 0);
         PC: out unsigned(15 downto 0);
-        banco_out: out unsigned (15 downto 0);
-        ULA_out : out unsigned(15 downto 0)
+        ULA_out,pin_out : out unsigned(15 downto 0)
     );
 end entity;
 
@@ -34,8 +33,7 @@ architecture a_Prcessador of Processador is
             reg_selec : in unsigned (3 downto 0);
             data_in, data_ram : in unsigned (15 downto 0);
             data_out : out unsigned (15 downto 0);
-            reg_dado : out unsigned (6 downto 0);
-            acumulador_s, banco_s: out unsigned (15 downto 0);
+            acumulador_s, banco_s, saida: out unsigned (15 downto 0);
             f_carry, f_zero : out std_logic
         );
     end component;
@@ -43,7 +41,7 @@ architecture a_Prcessador of Processador is
     component RAM is
         port(
             clk      : in std_logic;
-            endereco : in unsigned(6 downto 0);
+            endereco : in unsigned(15 downto 0);
             wr_en    : in std_logic;
             dado_in  : in unsigned(15 downto 0);
             dado_out : out unsigned(15 downto 0) 
@@ -54,8 +52,7 @@ architecture a_Prcessador of Processador is
     signal wr_enBanco_s, wr_enAcumulador_s, wr_enRAM_s, wr_enFlags_s, MOV_R_A_s, MOV_A_R_s, lw_flag_s, soma_acumulador_s,carry,flag, f_carry_s, f_zero_s : std_logic;
     signal opcode_ULA_s : unsigned (1 downto 0);
     signal reg_selec_s: unsigned (3 downto 0);
-    signal const_s, RAM_out, acumulador_out : unsigned (15 downto 0);
-    signal endereco_RAM : unsigned(6 downto 0);
+    signal const_s, RAM_out, acumulador_out, banco_out_s : unsigned (15 downto 0);
 
 begin
     
@@ -96,9 +93,9 @@ begin
         data_in=> const_s,
         data_ram=>RAM_out,
         data_out=> ULA_out,
-        reg_dado=> endereco_RAM,
         acumulador_s=>acumulador_out,
-        banco_s=>banco_out,
+        banco_s=>banco_out_s,
+        saida=>pin_out,
         f_carry=> f_carry_s,
         f_zero=> f_zero_s,
         lw_flag=>lw_flag_s
@@ -107,12 +104,11 @@ begin
     Processador_RAM : RAM
     port map(
         clk => clk,
-        endereco => endereco_RAM,
+        endereco => banco_out_s,
         wr_en => wr_enRAM_s,
         dado_in => acumulador_out,
         dado_out => RAM_out
     );
-
 
 
 

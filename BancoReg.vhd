@@ -7,7 +7,7 @@ entity BancoReg is
         wr_en, clk, rst : in std_logic;
         reg_selec : in unsigned(3 downto 0);
         data_write : in   unsigned(15 downto 0);
-        data_reg : out unsigned(15 downto 0)
+        data_reg,saida : out unsigned(15 downto 0)
     );
 end BancoReg;
 
@@ -113,7 +113,9 @@ begin
                 data7 when reg_selec="0111" else
                 data8 when reg_selec="1000" else
                 data9 when reg_selec="1001" else
-                "0000000000000000";                    
+                "0000000000000000";
+                
+    saida <= data9;
 end architecture;
 
 

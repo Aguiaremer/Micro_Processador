@@ -12,8 +12,7 @@ architecture a_Processador_tb of Processador_tb is
             instrucao: out unsigned(15 downto 0);
             estado: out unsigned(1 downto 0);
             PC: out unsigned(15 downto 0);
-            banco_out: out unsigned (15 downto 0);
-            ULA_out : out unsigned(15 downto 0)
+            ULA_out,pin_out : out unsigned(15 downto 0)
     );
     end component;
 
@@ -22,13 +21,13 @@ architecture a_Processador_tb of Processador_tb is
     signal estado:  unsigned(1 downto 0);
     signal PC:  unsigned(15 downto 0);
     signal banco_out:  unsigned (15 downto 0);
-    signal ULA_out :  unsigned(15 downto 0);
+    signal ULA_out,pin_out :  unsigned(15 downto 0);
 
     signal   finished    : std_logic := '0';
     constant period_time  : time := 100 ns;
 
 begin
-    uut: Processador port map(clk,rst,instrucao,estado,PC,banco_out,ULA_out);
+    uut: Processador port map(clk,rst,instrucao,estado,PC,ULA_out,pin_out);
 
     reset_global: process
     begin
@@ -40,7 +39,7 @@ begin
 
     sim_time_proc: process
     begin
-        wait for 100 us;
+        wait for 20000 us;
         finished <= '1';
         wait;
     end process sim_time_proc;
